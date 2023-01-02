@@ -20,6 +20,7 @@ ball = pg.Rect(randrange(ball_rect, WIDTH - ball_rect), HEIGHT // 2, ball_rect, 
 dx, dy = 1, -1
 
 pg.init()
+pg.display.set_caption('BREAKOUT!')
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 
 clock = pg.time.Clock()
@@ -33,8 +34,8 @@ while True:
             exit()
     screen.blit(img, (0, 0))
     # draw objects
-    pg.draw.rect(screen, pg.Color('white'), paddle)
-    pg.draw.circle(screen, pg.Color('white'), ball.center, BALL_RADIUS)
+    pg.draw.rect(screen, pg.Color('azure3'), paddle)
+    pg.draw.circle(screen, pg.Color('azure3'), ball.center, BALL_RADIUS)
     # ball movement
     ball.x += BALL_SPEED * dx
     ball.y += BALL_SPEED * dy
@@ -44,6 +45,9 @@ while True:
     # collision top
     if ball.centery < BALL_RADIUS:
         dy = -dy
+    # collision paddle
+    if ball.colliderect(paddle) and dy > 0:
+        dy = - dy
 
     # control
     key = pg.key.get_pressed()
